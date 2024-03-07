@@ -22,7 +22,7 @@ const Signin = () => {
             message.success(response.message || 'Sigin successfully');
         } catch (error) {
            console.log('error while singin', error) ;
-           message.error(error);
+           message.error(error.error);
         }
     };
 
