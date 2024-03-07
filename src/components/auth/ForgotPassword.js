@@ -3,6 +3,8 @@ import { Typography, Input, Button, Form, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
+import PasswordUpdate from './PasswordUpdate';
+import { useNavigate } from 'react-router-dom';
 
 const { Item } = Form;
 const { Title } = Typography;
@@ -16,6 +18,8 @@ const ForgotPassword = () => {
     const [resendTimeout, setResendTimeout] = useState(null);
     const [resendDisabled, setResendDisabled] = useState(false);
     const [countdown, setCountdown] = useState(30);
+    const [passwordScreen, setPasswordScreen] = useState(false);
+    const navigate = useNavigate();
 
     const handleForgotPassword = async () => {
         try {
@@ -38,6 +42,7 @@ const ForgotPassword = () => {
             const response = await callApi('post', apiList.verifyOtp, forgotPasswordDetails);
             console.log('verify response is', response)
             message.success(response.message);
+            setPasswordScreen(true);
         } catch (error) {
             console.log(`error while verify otp`, error.error);
             message.error(error.error)
@@ -117,30 +122,34 @@ const ForgotPassword = () => {
                     </Item>
                 </Form>
             ) : (
-                <Form
-                    name="forgotpassword_form"
-                    onFinish={handleOtpVerify}
-                    onValuesChange={handleChanges}
-                    style={{ marginTop: '24px' }}
-                >
-                    <Item
-                        name="otp"
-                        label="Enter OTP"
-                        rules={[{ required: true, message: 'Please input your OTP!' }]}
+                !passwordScreen ? (
+                    <Form
+                        name="forgotpassword_form"
+                        onFinish={handleOtpVerify}
+                        onValuesChange={handleChanges}
+                        style={{ marginTop: '24px' }}
                     >
-                        <Input prefix={<LockOutlined />} placeholder="6 digit OTP" />
-                    </Item>
-                    <Item>
-                        <Button type="link" disabled={resendDisabled} onClick={handleResendOTP}>
-                            Resend OTP {countdown > 0 ? <>({countdown}S) </> : null}
-                        </Button>
-                    </Item>
-                    <Item>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Item>
-                </Form>
+                        <Item
+                            name="otp"
+                            label="Enter OTP"
+                            rules={[{ required: true, message: 'Please input your OTP!' }]}
+                        >
+                            <Input prefix={<LockOutlined />} placeholder="6 digit OTP" />
+                        </Item>
+                        <Item>
+                            <Button type="link" disabled={resendDisabled} onClick={handleResendOTP}>
+                                Resend OTP {countdown > 0 ? <>({countdown}S) </> : null}
+                            </Button>
+                        </Item>
+                        <Item>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Item>
+                    </Form>
+                ) : (
+                    <PasswordUpdate email={forgotPasswordDetails.email} />
+                )
             )}
         </div>
     );

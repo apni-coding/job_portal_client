@@ -3,6 +3,7 @@ import { Typography, Input, Button, Select, Form, Upload, message } from 'antd';
 import { MailOutlined, LockOutlined, InfoCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
+import { Link } from 'react-router-dom';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -183,7 +184,7 @@ const Signup = () => {
                         </Button>
                     </Item>
                     <Item>
-                        Already have an account? <a href="#">Signin</a>
+                        Already have an account? <Link to='/signin'>Signin </Link>
                     </Item>
                 </Form>
             </div>

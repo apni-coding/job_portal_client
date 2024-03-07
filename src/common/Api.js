@@ -5,7 +5,7 @@ const apiList = {
   signup: `${server}/auth/register`,
   forgotPasswordOtp: `${server}/auth/forgotpasswordotp`,
   verifyOtp: `${server}/auth/verifyotp`,
-
+  updatePassword: `${server}/auth/updatepassword`,
 
   uploadResume: `${server}/upload/resume`,
   uploadProfileImage: `${server}/upload/profile`,
