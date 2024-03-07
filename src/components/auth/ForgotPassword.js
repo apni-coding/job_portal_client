@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Input, Button, Form } from 'antd';
+import { Typography, Input, Button, Form, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { callApi } from '../../common/CallApi';
+import apiList from '../../common/Api';
 
 const { Item } = Form;
 const { Title } = Typography;
@@ -15,29 +17,50 @@ const ForgotPassword = () => {
     const [resendDisabled, setResendDisabled] = useState(false);
     const [countdown, setCountdown] = useState(30);
 
-    const handleForgotPassword = () => {
-        console.log(forgotPasswordDetails);
-        setIsOtpSent(true);
-        setResendDisabled(true);
-        setResendTimeout(setTimeout(() => setResendDisabled(false), 30000)); // Resend otp after 30 seconds
-        startCountdown();
-    };
-
-    const handleOtpVerify = () => {
-        console.log(forgotPasswordDetails);
-    };
-
-    const handleResendOTP = () => {
-        // Implement resend OTP logic
-        // setIsOtpSent(false);
-        setResendDisabled(true);
-        setCountdown(30);
-        clearInterval(resendTimeout); // Clear the countdown interval
-        setResendTimeout(setTimeout(() => {
-            setResendDisabled(false);
+    const handleForgotPassword = async () => {
+        try {
+            const response = await callApi('post', apiList.forgotPasswordOtp, forgotPasswordDetails);
+            console.log('otp send response is', response)
+            message.success(response.message);
+            setIsOtpSent(true);
+            setResendDisabled(true);
+            setResendTimeout(setTimeout(() => setResendDisabled(false), 30000)); // Resend otp after 30 seconds
             startCountdown();
-        }, 30000)); // Resend otp after 30 seconds
-        window.alert('click')
+        } catch (error) {
+            console.log(`error while send otp for forget`, error.error);
+            message.error(error.error)
+        }
+
+    };
+
+    const handleOtpVerify = async() => {
+        try {
+            const response = await callApi('post', apiList.verifyOtp, forgotPasswordDetails);
+            console.log('verify response is', response)
+            message.success(response.message);
+        } catch (error) {
+            console.log(`error while verify otp`, error.error);
+            message.error(error.error)
+        }
+    };
+
+    const handleResendOTP = async () => {
+        try {
+            const response = await callApi('post', apiList.forgotPasswordOtp, forgotPasswordDetails);
+            console.log('resend response is', response)
+            setResendDisabled(true);
+            setCountdown(30);
+            clearInterval(resendTimeout);
+            startCountdown(); 
+            setResendTimeout(setTimeout(() => {
+                setResendDisabled(false);
+                
+            }, 30000)); // Resend otp after 30 seconds
+            message.success(response.message);
+        } catch (error) {
+            console.log(`error while send otp for resend`, error.error);
+            message.error(error.error)
+        }
     };
 
     const handleChanges = (changedValues) => {
@@ -61,7 +84,7 @@ const ForgotPassword = () => {
     };
 
     useEffect(() => {
-        
+
         return () => {
             clearInterval(resendTimeout); // Clear timeout on component unmount
         };
@@ -109,7 +132,7 @@ const ForgotPassword = () => {
                     </Item>
                     <Item>
                         <Button type="link" disabled={resendDisabled} onClick={handleResendOTP}>
-                            Resend OTP {countdown>0 ? <>({countdown}S) </>: null}
+                            Resend OTP {countdown > 0 ? <>({countdown}S) </> : null}
                         </Button>
                     </Item>
                     <Item>
