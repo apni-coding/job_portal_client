@@ -19,7 +19,9 @@ const Signin = () => {
         try {
             const response = await callApi('post', apiList.signin, signinDetails);
             console.log('sigin successfully',response)
+            localStorage.setItem('token', response.token)
             message.success(response.message || 'Sigin successfully');
+
         } catch (error) {
            console.log('error while singin', error) ;
            message.error(error.error);

@@ -5,6 +5,7 @@ import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import Navbar from "./components/Navbar";
 import PasswordUpdate from "./components/auth/PasswordUpdate";
+import AddJob from "./components/recruiter/AddJob";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/addjob" element={<AddJob />} />
           
           
         </Routes>
