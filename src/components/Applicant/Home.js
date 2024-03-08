@@ -6,10 +6,10 @@ import { callApi } from '../../common/CallApi';
 
 function Home() {
     const [jobDetails, setJobDetails] = useState([]);
-
+    const [token, setToken] = useState(localStorage.getItem('token') || null)
     const getJobDetails = async () => {
         try {
-            const response = await callApi('get', apiList.addJob);
+            const response = await callApi('get', apiList.getJobs, null, token);
             console.log('Job details:', response);
             setJobDetails(response);
         } catch (error) {
@@ -24,25 +24,25 @@ function Home() {
 
     return (
         <div>
-            {jobDetails.map((job, index) => (
+            {jobDetails.map((jobInfo, index) => (
                 <JobCard
                     key={index}
-                    jobTitle={job.title}
-                    skillsRequired={job.skills}
-                    jobType={job.type}
-                    duration={job.duration}
-                    salary={job.salary}
-                    deadline={job.applicationDeadline}
-                    numberOfOpenings={job.numberOfOpenings}
-                    location={job.location}
-                    experienceLevel={job.experienceLevel}
-                    education={job.educationRequirements}
-                    benefits={job.benefits}
-                    description={job.description}
-                    companyName={job.companyInfo.name}
-                    companyLocation={job.companyInfo.location || 'pune'}
-                    companyLogo = {job.companyInfo.profile}
-                    jobId={job._id}
+                    jobTitle={jobInfo.job.title}
+                    skillsRequired={jobInfo.job.skills}
+                    jobType={jobInfo.job.type}
+                    duration={jobInfo.job.duration}
+                    salary={jobInfo.job.salary}
+                    deadline={jobInfo.job.applicationDeadline}
+                    numberOfOpenings={jobInfo.job.numberOfOpenings}
+                    location={jobInfo.job.location}
+                    experienceLevel={jobInfo.job.experienceLevel}
+                    education={jobInfo.job.educationRequirements}
+                    benefits={jobInfo.job.benefits}
+                    description={jobInfo.job.description}
+                    companyName={jobInfo.company.name}
+                    companyLocation={jobInfo.company.location || 'pune'}
+                    companyLogo = {jobInfo.company.profile}
+                    jobId={jobInfo.job._id}
                 />
             ))}
         </div>

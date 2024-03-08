@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Button, Modal } from 'antd';
+import { Card, Button, Modal, message } from 'antd';
+import apiList from '../../common/Api';
+import { callApi } from '../../common/CallApi';
+import { useNavigate } from 'react-router-dom/dist';
 
 const { Meta } = Card;
 
@@ -23,6 +26,8 @@ const JobCard = (props) => {
         jobId
     } = props;
     const [modalVisible, setModalVisible] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    const navigate = useNavigate();
 
     const handleViewMore = () => {
         setModalVisible(true);
@@ -32,10 +37,16 @@ const JobCard = (props) => {
         setModalVisible(false);
     };
 
-    const handleApplyNow = (e) => {
-        console.log(e)
-        // Add your logic here for applying to the job
-        // For example, you can redirect to an application form or trigger an API request
+    const handleApplyNow =async (jobId) => {
+        try {
+            const response = await callApi('post', apiList.applyJob, {jobId}, token);
+            console.log('Job details:', response);
+           message.success(response.message);
+           window.location.reload();
+        } catch (error) {
+            console.error('Error while fetching job details:', error);
+            message.error(error.error);
+        }
     };
 
     return (

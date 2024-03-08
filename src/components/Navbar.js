@@ -19,8 +19,11 @@ const Navbar = () => {
       <Item key="forgot-password">
         <Link to="/forgot-password">Forgot Password</Link>
       </Item>
-      <Item key="forgot-password">
-        <Link to="/addjob">add job</Link>
+      <Item key="addjob">
+        <Link to="/recruiter/addjob">add job</Link>
+      </Item>
+      <Item key="myjob">
+        <Link to="/recruiter/ownjobs">My Job</Link>
       </Item>
     </Menu>
   );
