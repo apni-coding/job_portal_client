@@ -8,6 +8,7 @@ const apiList = {
   updatePassword: `${server}/auth/updatepassword`,
 
   addJob:`${server}/recruiter/createjob`,
+  addJob:`${server}/applicant/alljob`,
 
   uploadResume: `${server}/upload/resume`,
   uploadProfileImage: `${server}/upload/profile`,

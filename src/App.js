@@ -6,6 +6,7 @@ import Signup from './components/auth/Signup';
 import Navbar from "./components/Navbar";
 import PasswordUpdate from "./components/auth/PasswordUpdate";
 import AddJob from "./components/recruiter/AddJob";
+import Home from "./components/Applicant/Home";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Signup />} />
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
