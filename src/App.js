@@ -8,6 +8,8 @@ import PasswordUpdate from "./components/auth/PasswordUpdate";
 import AddJob from "./components/recruiter/AddJob";
 import Home from "./components/Applicant/Home";
 import OwnJobList from "./components/recruiter/OwnJobList";
+import Application from "./components/recruiter/Application";
+import SingleApplicationInfo from "./components/recruiter/SingleApplicationInfo";
 
 function App() {
   return (
@@ -21,6 +23,10 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/recruiter/addjob" element={<AddJob />} />
           <Route path="/recruiter/ownjobs" element={<OwnJobList />} />
+          <Route path="/recruiter/applications" element={<Application />} />
+          <Route path="/recruiter/applications/:id" element={<SingleApplicationInfo />} />
+
+
           
           
           

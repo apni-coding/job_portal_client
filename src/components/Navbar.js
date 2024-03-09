@@ -25,6 +25,12 @@ const Navbar = () => {
       <Item key="myjob">
         <Link to="/recruiter/ownjobs">My Job</Link>
       </Item>
+      <Item key="application">
+        <Link to="/recruiter/applications">Application</Link>
+      </Item>
+      <Item key="sapplication">
+        <Link to="/recruiter/applications/:id">Single Application</Link>
+      </Item>
     </Menu>
   );
 };

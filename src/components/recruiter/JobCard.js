@@ -30,7 +30,8 @@ const JobCard = ({ jobs }) => {
                 <Card
                     key={job._id}
                     title={job.title}
-                    style={{ width: 300, marginBottom: 20 }}
+                    style={{ width: 300, margin: '16px auto' }}
+                    hoverable
                     actions={[
                         <Space>
                             <Button type="link" onClick={() => handleEdit(job)} icon={<EditOutlined />} />

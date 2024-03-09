@@ -11,7 +11,11 @@ const apiList = {
   getmyJob: `${server}/recruiter/getmyjob`, 
   getJobs:`${server}/applicant/alljob`,
   applyJob: `${server}/applicant/applyjob`,
+  jobsWithApplicationCount:`${server}/recruiter/jobs-with-application-count`,
+  getApplicationByJobId:`${server}/recruiter/get-application-by-jobid`,
 
+  
+  
   uploadResume: `${server}/upload/resume`,
   uploadProfileImage: `${server}/upload/profile`,
   jobs: `${server}/api/jobs`,
