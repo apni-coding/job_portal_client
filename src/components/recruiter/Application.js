@@ -24,7 +24,7 @@ function Application() {
         <div>
             {
                 jobInfo.map((job) => (
-                    <ApplicationCard key={job.id} jobTitle={job.title} numApplications={job.totalApplicationCount} id={job._id} />
+                    <ApplicationCard key={job.id} jobTitle={job.title} numApplications={job.applicationCount} id={job._id} />
                 ))
             }
         </div>
