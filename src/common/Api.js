@@ -13,6 +13,7 @@ const apiList = {
   applyJob: `${server}/applicant/applyjob`,
   jobsWithApplicationCount:`${server}/recruiter/jobs-with-application-count`,
   getApplicationByJobId:`${server}/recruiter/get-application-by-jobid`,
+  applicationAction: `${server}/recruiter/applicationaction`,
 
   
   
