@@ -11,6 +11,7 @@ import OwnJobList from "./components/recruiter/OwnJobList";
 import Application from "./components/recruiter/Application";
 import SingleApplicationInfo from "./components/recruiter/SingleApplicationInfo";
 import AppliedJobs from "./components/Applicant/AppliedJobs";
+import MyProfile from "./components/MyProfile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/recruiter/applications" element={<Application />} />
           <Route path="/recruiter/applications/:id" element={<SingleApplicationInfo />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
+          <Route path="/myprofile" element={<MyProfile />} />
 
 
           

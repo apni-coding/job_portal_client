@@ -34,6 +34,9 @@ const Navbar = () => {
       <Item key="appliedjobs">
         <Link to="/appliedjobs">Applied jobs</Link>
       </Item>
+      <Item key="myprofile">
+        <Link to="/myprofile">My Profile</Link>
+      </Item>
     </Menu>
   );
 };

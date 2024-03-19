@@ -3,6 +3,7 @@ export const server = "http://localhost:5000";
 const apiList = {
   signin: `${server}/auth/login`,
   signup: `${server}/auth/register`,
+  userInfo: `${server}/auth/myProfile`,
   forgotPasswordOtp: `${server}/auth/forgotpasswordotp`,
   verifyOtp: `${server}/auth/verifyotp`,
   updatePassword: `${server}/auth/updatepassword`,
