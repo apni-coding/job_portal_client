@@ -3,25 +3,34 @@ import { Typography, Input, Button, Form, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signinUser } from '../../redux/actions/authAction';
+
 
 const { Item } = Form;
 const { Title } = Typography;
 
 const Signin = () => {
+    const dispatch = useDispatch();
     const [signinDetails, setSigninDetails] = useState({
         email: '',
         password: '',
     });
 
-    const handleSignin = async() => {
+    const handleSignin = async () => {
         console.log(signinDetails);
         try {
             const response = await callApi('post', apiList.signin, signinDetails);
-            console.log('sigin successfully',response)
+            console.log('sigin successfully', response)
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('userType', response.userType);
+
             message.success(response.message || 'Sigin successfully');
+            dispatch(signinUser())
         } catch (error) {
-           console.log('error while singin', error) ;
-           message.error(error);
+            console.log('error while singin', error);
+            message.error(error.error);
         }
     };
 
@@ -64,10 +73,10 @@ const Signin = () => {
                     </Button>
                 </Item>
                 <Item>
-                    Don't have an account? <a href="#">Signup</a>
+                    Don't have an account? <Link to='/signup'>Signup </Link>
                 </Item>
                 <Item>
-                    Forgot password? <a href="#">Reset password</a>
+                    Forgot password?  <Link to='/forgot-password'>Reset password</Link>
                 </Item>
             </Form>
         </div>

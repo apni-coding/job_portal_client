@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {  message } from 'antd';
 
 const api = axios.create();
 
@@ -21,14 +20,19 @@ api.interceptors.response.use(
 );
 
 // Common API function for making requests
-export const callApi = async (method, url, data = null, params = null) => {
+export const callApi = async (method, url, data = null, token = null, params = null) => {
     try {
+        const headers = {};
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         const response = await api({
             method,
             url,
             data,
             params,
-           
+            headers
         });
         return response;
     } catch (error) {
@@ -38,23 +42,3 @@ export const callApi = async (method, url, data = null, params = null) => {
 
 // Export the axios instance for advanced usage
 export default api;
-
-
-/*
-
- try {
-        // Example GET request
-        const userData = await callApi('get', '/users');
-        console.log(userData);
-
-        // Example POST request with data
-        const postData = await callApi('post', '/posts', { title: 'New Post', body: 'Lorem ipsum' });
-        console.log(postData);
-
-        // Example DELETE request with query parameters
-        const deletedData = await callApi('delete', '/posts/1', null, { userId: 1 });
-        console.log(deletedData);
-    } catch (error) {
-        console.error('API Error:', error);
-    }
-    */

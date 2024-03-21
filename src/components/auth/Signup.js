@@ -3,6 +3,7 @@ import { Typography, Input, Button, Select, Form, Upload, message } from 'antd';
 import { MailOutlined, LockOutlined, InfoCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -12,7 +13,7 @@ const Signup = () => {
     const [form] = Form.useForm();
     const [categoryType, setCategoryType] = useState('applicant')
     const [skillsData, setSkillData] = useState(['react js', 'node js', 'python', 'excel'])
-
+    const navigate = useNavigate()
     const handleCategoryChange = (e) => {
         setCategoryType(e);
     }
@@ -40,14 +41,12 @@ const Signup = () => {
             });
             const response = await callApi('post', apiList.signup, formData);
             message.success(response.message);
+            navigate('/signin')
         } catch (error) {
             console.error('Signup error:', error);
             let errorMessage = 'An error occurred';
-            if (error) {
-                message.error(error);
-                return;
-            }
-            message.error(errorMessage);
+            
+            message.error(error.error || errorMessage);
         }
     };
 
@@ -183,7 +182,7 @@ const Signup = () => {
                         </Button>
                     </Item>
                     <Item>
-                        Already have an account? <a href="#">Signin</a>
+                        Already have an account? <Link to='/signin'>Signin </Link>
                     </Item>
                 </Form>
             </div>
