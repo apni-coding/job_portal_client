@@ -4,27 +4,31 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signinUser } from '../../redux/actions/authAction';
+
 
 const { Item } = Form;
 const { Title } = Typography;
 
 const Signin = () => {
+    const dispatch = useDispatch();
     const [signinDetails, setSigninDetails] = useState({
         email: '',
         password: '',
     });
 
-    const handleSignin = async() => {
+    const handleSignin = async () => {
         console.log(signinDetails);
         try {
             const response = await callApi('post', apiList.signin, signinDetails);
-            console.log('sigin successfully',response)
+            console.log('sigin successfully', response)
             localStorage.setItem('token', response.token)
             message.success(response.message || 'Sigin successfully');
-
+            dispatch(signinUser(response.userType))
         } catch (error) {
-           console.log('error while singin', error) ;
-           message.error(error.error);
+            console.log('error while singin', error);
+            message.error(error.error);
         }
     };
 
