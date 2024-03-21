@@ -45,11 +45,8 @@ const Signup = () => {
         } catch (error) {
             console.error('Signup error:', error);
             let errorMessage = 'An error occurred';
-            if (error) {
-                message.error(error);
-                return;
-            }
-            message.error(errorMessage);
+            
+            message.error(error.error || errorMessage);
         }
     };
 

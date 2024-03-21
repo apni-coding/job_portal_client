@@ -5,11 +5,11 @@ export const registerUser = (userData) => {
     };
 };
 
-export const signinUser = (userData) => {
-    console.log("userData is",userData);
+export const signinUser = (userType) => {
+    console.log("userData is",userType);
     return {
         type: 'SIGNIN_USER',
-        payload: userData
+        payload: userType
     };
 };
 
@@ -24,6 +24,12 @@ export const forgotPassword = (email) => {
 export const logoutUser = () => {
     return {
         type: 'LOGOUT_USER'
+    };
+};
+
+export const checkToken = () => {
+    return {
+        type: 'CHECK_TOKEN'
     };
 };
 

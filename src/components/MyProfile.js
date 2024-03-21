@@ -79,7 +79,7 @@ const MyProfile = () => {
                 </Form.Item>
   
                 <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
-                  <Input />
+                  <Input disabled={true}/>
                 </Form.Item>
   
                 <Form.Item label="Contact Number" name="contactNumber" rules={[{ required: true, message: 'Please input your contact number!' }]}>
