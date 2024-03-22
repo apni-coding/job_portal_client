@@ -3,7 +3,7 @@ import { Typography, Input, Button, Form, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { callApi } from '../../common/CallApi';
 import apiList from '../../common/Api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signinUser } from '../../redux/actions/authAction';
 
@@ -12,6 +12,7 @@ const { Item } = Form;
 const { Title } = Typography;
 
 const Signin = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [signinDetails, setSigninDetails] = useState({
         email: '',
@@ -25,9 +26,9 @@ const Signin = () => {
             console.log('sigin successfully', response)
             localStorage.setItem('token', response.token);
             localStorage.setItem('userType', response.userType);
-
             message.success(response.message || 'Sigin successfully');
-            dispatch(signinUser())
+            dispatch(signinUser());
+            navigate('/');
         } catch (error) {
             console.log('error while singin', error);
             message.error(error.error);

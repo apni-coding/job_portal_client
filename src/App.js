@@ -48,6 +48,8 @@ function App() {
           
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/unuthorized" element={<Unauthorized/>}/>
+          <Route path="*" element={<Unauthorized/>}/>
+
 
 
 

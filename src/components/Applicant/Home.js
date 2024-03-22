@@ -3,15 +3,24 @@ import { message } from 'antd';
 import JobCard from './JobCard';
 import apiList from '../../common/Api';
 import { callApi } from '../../common/CallApi';
+import { useSelector } from 'react-redux';
 
 function Home() {
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const userRole = useSelector(state => state.auth.user);
     const [jobDetails, setJobDetails] = useState([]);
-    const [token, setToken] = useState(localStorage.getItem('token') || null)
+
     const getJobDetails = async () => {
         try {
-            const response = await callApi('get', apiList.getJobs, null, token);
-            console.log('Job details:', response);
-            setJobDetails(response);
+            if (isLoggedIn && userRole === 'applicant') {
+                const response = await callApi('get', apiList.getJobs, null, localStorage.getItem('token'));
+                console.log('Job details:', response);
+                setJobDetails(response);
+            } else {
+                const response = await callApi('get', apiList.activeJobs);
+                console.log('Job details:', response);
+                setJobDetails(response);
+            }
         } catch (error) {
             console.error('Error while fetching job details:', error);
             message.error(error.error);
@@ -41,7 +50,7 @@ function Home() {
                     description={jobInfo.job.description}
                     companyName={jobInfo.company.name}
                     companyLocation={jobInfo.company.location || 'pune'}
-                    companyLogo = {jobInfo.company.profile}
+                    companyLogo={jobInfo.company.profile}
                     jobId={jobInfo.job._id}
                 />
             ))}

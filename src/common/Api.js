@@ -16,6 +16,7 @@ const apiList = {
   getApplicationByJobId:`${server}/recruiter/get-application-by-jobid`,
   applicationAction: `${server}/recruiter/applicationaction`,
   appliedJobs: `${server}/applicant/appliedJobs`,
+  activeJobs:`${server}/applicant/activejobs`,
   
   
   uploadResume: `${server}/upload/resume`,

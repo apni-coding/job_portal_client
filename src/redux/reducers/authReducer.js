@@ -1,3 +1,5 @@
+import {message } from 'antd';
+
 const initialState = {
     user: null, //this is the user type applicant/recuriter
     isLoggedIn: false
@@ -18,6 +20,8 @@ const authReducer = (state = initialState, action) => {
         // Clear localStorage when logging out
         localStorage.removeItem('token');
         localStorage.removeItem('userType');
+        message.success('Logout successfully');
+        
         return {
           ...state,
           user: null,
